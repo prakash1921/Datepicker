@@ -1,0 +1,81 @@
+<div class="animated fadeIn" style="overflow-x: hidden;margin-top:15px;padding: 0px;">
+    <div class="row">
+        <div class="col-md-1">
+            <div class="form-group">
+                <select id="name" [(ngModel)]="numberOfRows" class="form-control textColor">
+                    <option value='10'>10</option>
+                    <option value='25'>25</option>
+                    <option value='50'>50</option>
+                    <option value='100'>100</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-2"></div>
+        <div class="col-md-2"></div>
+        <div class="col-md-2"></div>
+        <div class="col-md-2">
+            <form [formGroup]="search">
+                <div class="form-group">
+                    <input class="form-control" formControlName="search" id="name" placeholder="Search Role Name"
+                        type="text">
+                </div>
+            </form>
+        </div>
+        <div class="col-md-2">
+            <!-- <button type="button" (click)="goto()" class="btn btn-block btn-primary fa fa-plus" [disabled]='isRoleAdd'> <span><i
+                        class="fa fa-users" aria-hidden="true"></i></span> Add Roles</button> -->
+      
+                        <button type="button" (click)="goto()" class="btn btn-block btn-primary " >
+                           Add Roles</button>
+          
+                    </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+
+                </div>
+                <div class="card-body">
+                    <table class="table table-responsive-sm table-hover table-outline mb-0"
+                        style="border: 1px solid lightgray">
+                        <thead class="thead-light" style="text-align: center;">
+                            <tr>
+                                <td>RoleID</td>
+                                <td>Role Name</td>
+                                <td> Action </td>
+                            </tr>
+                        </thead>
+                        <tbody style="text-align: center;">
+                            <tr *ngFor="let item of rolesList | paginate: { id: 'listing_pagination',
+                                                                      itemsPerPage: numberOfRows,
+                                                                      currentPage: page,
+                                                                      totalItems: totalRec }">
+                                <td>{{item.RoleID}}</td>
+                                <td>{{item.RoleName}}</td>
+                                <!-- <td>{{getDate(emp.date)}}</td> -->
+                                <!-- <td>{{getDate(emp.date) | date: 'dd-MM-yyyy'}}</td> -->
+                                <!-- <td>{{emp.ename ? emp.ename : ' ' }}</td> -->
+                                <!-- <td>{{emp.length == 0 ? '-': emp.ename }}</td> -->
+
+                                <td>
+                                    <button type="button" (click)="$event.stopPropagation();edit(item)"
+                                        class="btn btn-success" [disabled]="isRoleEdit">Edit</button>
+                                    <button type="button" (click)="$event.stopPropagation();delete(item)"
+                                        class="btn btn-success" style="margin-left: 28px;" [disabled]="isRoleDelete">Delete</button>
+
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <pagination-controls style="float:right" id="listing_pagination" maxSize="5" directionLinks="true"
+                (pageChange)="page = $event"></pagination-controls>
+
+        </div>
+    </div>
+</div>
+

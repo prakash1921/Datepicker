@@ -1,0 +1,114 @@
+<div class="col-md-6">
+    <h2 class="text-center">Add User</h2>
+    <!-- <form [formGroup]="addForm" (ngSubmit)="save()"> -->
+         <form [formGroup]="addForm" (ngSubmit)="saveUserData()">
+        
+        <div class="form-group">
+            <div class="form-group">
+                <label for="PrintUserName">Print User Name:</label>
+                <input type="text" formControlName="PrintUserName" placeholder="Print User Name" name="PrintUserName"
+                    class="form-control" id="PrintUserName">
+            </div>
+            <!-- <div *ngIf="from.hasError('PrintUserName')" class="text-danger">
+                {{form.getError('PrintUserName')}}
+            </div> -->
+            <div *ngIf="addForm.controls['PrintUserName'].errors?.required &&
+            addForm.controls['PrintUserName'].touched">PrintUserName is required
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="form-group">
+                <label for="email">Email address:</label>
+                <input type="email" formControlName="email" placeholder="Email" name="email" class="form-control"
+                    id="email">
+            </div>
+            <!-- <div *ngIf="from.hasError('email')" class="text-danger">
+                {{form.getError('email')}}
+            </div> -->
+            <div *ngIf="addForm.controls['email'].errors?.required &&
+            addForm.controls['email'].touched">Email is Required
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="form-group">
+                <label for="Username">User Name:</label>
+                <input formControlName="Username" placeholder="User Name" name="Username" class="form-control"
+                    id="Username">
+            </div>
+            <!-- <div *ngIf="from.hasError('UserName')" class="text-danger">
+                {{form.getError('UserName')}}
+            </div> -->
+            <div *ngIf="addForm.controls['Username'].errors?.required &&
+            addForm.controls['Username'].touched">User Name is required
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="form-group">
+                <label for="password">Password :</label>
+                <input formControlName="password" placeholder="password" name="password" class="form-control"
+                    id="password">
+            </div>
+            <div *ngIf="passPatternError" class="text-danger">
+                Password Should contain atleast characters,one letter,one number and one special character.
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="form-group">
+                <label for="repassword">Confirm Password :</label>
+                <input formControlName="repassword" placeholder="Confirm Password" name="repassword"
+                    class="form-control" id="repassword">
+            </div>
+            <!-- <div *ngIf="from.hasError('repassword')" class="text-danger">
+                {{form.getError('repassword')}}
+            </div> -->
+            <div *ngIf="addForm.controls['repassword'].errors?.required &&
+            addForm.controls['repassword'].touched">
+            Password Should contain atleast characters,one letter,one number and one special character.
+
+            </div>
+            <div *ngIf="confirmPasswordError" class="text-danger">
+                Confirom Password Does Not Match With Password
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="form-group">
+                <label for="name">Roles <span style="color:red">*</span></label>
+                <select id="Role" fromControlName="Role" class="from-control" (change)="getrole($event)">
+                    <option value=' ' selected disabled>Select Role</option>
+                    <option *ngFor="let obj of rolesList" [value]="obj.RoleID">{{obj.RoleName}}</option>
+                </select>
+            </div>
+            <div *ngIf="isRole" class="text-danger">
+                Please Select Role
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="form-group">
+                <label for="HospitalID">Hospital Name :</label>
+                <select formControlName="HospitalID" id="HospitalID" class="form-control">
+                    <option value=' ' selected disabled>Select Hospital</option>
+                    <option value="1">Famliy Care</option>
+                </select>
+            </div>
+            <div *ngIf="isHospital" class="text-danger">
+                Please Select Hospital
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="form-group">
+                <label for="name">Location :</label>
+                <select formControlName="LocationID" id="LocationID" class="form-control" (change)="getlocation($event)">
+                    <option value=' ' selected disabled>Select Location</option>
+                    <option value="0">ALL</option>
+                    <option *ngFor="let obj of LocationList" [value]="obj.LocationID">{{obj.LocationName}}</option>
+
+                </select>
+            </div>
+            <div *ngIf="isLocation" class="text-danger">
+                Please Select Hospital Location
+            </div>
+        </div>
+
+        <button class="btn btn-success" type="submit">Save</button>
+    </form>
+</div>

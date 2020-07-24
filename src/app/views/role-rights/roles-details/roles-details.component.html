@@ -1,0 +1,564 @@
+<div class="animated fadeIn">
+    <div class="row mt-5">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    Add Roles
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <label for="RoleName">Role Name<span style="color: red;">*</span></label>
+                                    <input id="RoleName" [(ngModel)]="RoleName" class="form-group"
+                                        placeholder="Role Name" type="text" />
+
+                                </div>
+                                <div *ngIf="roleNameError" class="text-danger">
+                                    {{roleNameErrorMessage}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    Rights
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-check-inline">
+                                <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input" [(ngModel)]="dashboard">
+                                    <span style="font-size:20px"><b>Dashoard</b></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-12" style="margin-top: 10px;">
+                            <div class="from-check-inline">
+                                <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input" [(ngModel)]="hospitals"
+                                        (change)="hospitalChange()">
+                                    <span style="font-size:20px"><b>Hospitals</b></span>
+                                </label>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6" *ngIf="isHospital" style="margin-top: 10px;">
+                                    <div class="form-check-inline">
+                                        <label class="from-check-label"><span style="font-size: 15px;"><b>User Roles
+                                                    Rights</b></span>
+                                        </label>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6" style="margin-top: 10px;">
+                                            <div class="form-check-inline">
+                                                <label class="from-check-label">User Rights
+                                                </label>
+                                            </div>
+
+                                            <div class="col-md-12" style="margin-top: 10px;">
+                                                <div class="form-check-inline">
+                                                    <input type="checkbox" class="from-check-input"
+                                                        [(ngModel)]="userAdd">Add
+                                                </div>
+                                                <div class="form-check-inline">
+                                                    <label class="form-check-label">
+                                                        <input type="checkbox" class="from-check-input"
+                                                            [(ngModel)]="userEdit">Edit
+                                                    </label>
+                                                </div>
+                                                <div class="form-check-inline">
+                                                    <label class="form-check-label">
+                                                        <input type="checkbox" class="from-check-input"
+                                                            [(ngModel)]="userDelete">Delete
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6" style="margin-top: 10px;">
+                                            <div class="form-check-inline">
+                                                <label class="from-check-label"> Roles Rights
+                                                </label>
+                                            </div>
+                                            <div class="col-md-12" style="margin-top: 10px;">
+                                                <div class="form-check-inline">
+                                                    <input type="checkbox" class="from-check-input"
+                                                        [(ngModel)]="roleAdd">Add
+                                                </div>
+                                                <div class="form-check-inline">
+                                                    <label class="form-check-label">
+                                                        <input type="checkbox" class="from-check-input"
+                                                            [(ngModel)]="roleEdit">Edit
+                                                    </label>
+                                                </div>
+                                                <div class="form-check-inline">
+                                                    <label class="form-check-label">
+                                                        <input type="checkbox" class="from-check-input"
+                                                            [(ngModel)]="roleDelete">Delete
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6" *ngIf="isHospital" style="margin-top: 10px;">
+                                    <div class="form-check-inline">
+                                        <label class="from-check-label"><span style="font-size: 15px;"><b>Hospital
+                                                    Location
+                                                </b></span>
+                                        </label>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6" style="margin-top: 10px;">
+                                            <div class="form-check-inline">
+                                                <label class="from-check-label"> Hospitals
+                                                </label>
+                                            </div>
+                                            <div class="col-md-12" style="margin-top: 10px;">
+                                                <div class="form-check-inline">
+                                                    <input type="checkbox" class="from-check-input"
+                                                        [(ngModel)]="hospitalAdd">Add
+                                                </div>
+                                                <div class="form-check-inline">
+                                                    <label class="form-check-label">
+                                                        <input type="checkbox" class="from-check-input"
+                                                            [(ngModel)]="hospitalEdit">Edit
+                                                    </label>
+                                                </div>
+                                                <div class="form-check-inline">
+                                                    <label class="form-check-label">
+                                                        <input type="checkbox" class="from-check-input"
+                                                            [(ngModel)]="hospitalDelete">Delete
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6" style="margin-top: 10px;">
+                                            <div class="form-check-inline">
+                                                <label class="from-check-label"> Hospitals Location
+                                                </label>
+                                            </div>
+                                            <div class="col-md-12" style="margin-top: 10px;">
+                                                <div class="form-check-inline">
+                                                    <input type="checkbox" class="from-check-input"
+                                                        [(ngModel)]="hospitallocationAdd">Add
+                                                </div>
+                                                <div class="form-check-inline">
+                                                    <label class="form-check-label">
+                                                        <input type="checkbox" class="from-check-input"
+                                                            [(ngModel)]="hospitallocationEdit">Edit
+                                                    </label>
+                                                </div>
+                                                <div class="form-check-inline">
+                                                    <label class="form-check-label">
+                                                        <input type="checkbox" class="from-check-input"
+                                                            [(ngModel)]="hospitallocationDelete">Delete
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12" style="margin-top: 10px;">
+                            <div class="from-check-inline">
+                                <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input" [(ngModel)]="masters"
+                                        (change)="masterChange()">
+                                    <span style="font-size:20px"><b>Masters</b></span>
+                                </label>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6" *ngIf="isMasters" style="margin-top: 10px;">
+                                    <div class="form-check-inline">
+                                        <label class="from-check-label"><span style="font-size: 15px;"><b>Master
+                                                    Hospitals</b></span>
+                                        </label>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6" style="margin-top: 10px;">
+                                            <div class="form-check-inline">
+                                                <label class="from-check-label">Departments
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12" style="margin-top: 10px;">
+                                            <div class="form-check-inline">
+                                                <input type="checkbox" class="from-check-input"
+                                                    [(ngModel)]="departAdd">Add
+                                            </div>
+                                            <div class="form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input type="checkbox" class="from-check-input"
+                                                        [(ngModel)]="departEdit">Edit
+                                                </label>
+                                            </div>
+                                            <div class="form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input type="checkbox" class="from-check-input"
+                                                        [(ngModel)]="departDelete">Delete
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6" style="margin-top: 10px;">
+                                            <div class="form-check-inline">
+                                                <label class="from-check-label"> Qualification
+                                                </label>
+                                            </div>
+                                            <div class="col-md-12" style="margin-top: 10px;">
+                                                <div class="form-check-inline">
+                                                    <input type="checkbox" class="from-check-input"
+                                                        [(ngModel)]="qualificationAdd">Add
+                                                </div>
+                                                <div class="form-check-inline">
+                                                    <label class="form-check-label">
+                                                        <input type="checkbox" class="from-check-input"
+                                                            [(ngModel)]="qualificationEdit">Edit
+                                                    </label>
+                                                </div>
+                                                <div class="form-check-inline">
+                                                    <label class="form-check-label">
+                                                        <input type="checkbox" class="from-check-input"
+                                                            [(ngModel)]="qualificationDelete">Delete
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6" style="margin-top: 10px;">
+                                            <div class="form-check-inline">
+                                                <label class="from-check-label"> Specialization
+                                                </label>
+                                            </div>
+                                            <div class="col-md-12" style="margin-top: 10px;">
+                                                <div class="form-check-inline">
+                                                    <input type="checkbox" class="from-check-input"
+                                                        [(ngModel)]="specializationAdd">Add
+                                                </div>
+                                                <div class="form-check-inline">
+                                                    <label class="form-check-label">
+                                                        <input type="checkbox" class="from-check-input"
+                                                            [(ngModel)]="specializationEdit">Edit
+                                                    </label>
+                                                </div>
+                                                <div class="form-check-inline">
+                                                    <label class="form-check-label">
+                                                        <input type="checkbox" class="from-check-input"
+                                                            [(ngModel)]="specializationDelete">Delete
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6" style="margin-top: 10px;">
+                                            <div class="form-check-inline">
+                                                <label class="from-check-label"> Doctors
+                                                </label>
+                                            </div>
+                                            <div class="col-md-12" style="margin-top: 10px;">
+                                                <div class="form-check-inline">
+                                                    <input type="checkbox" class="from-check-input"
+                                                        [(ngModel)]="doctorAdd">Add
+                                                </div>
+                                                <div class="form-check-inline">
+                                                    <label class="form-check-label">
+                                                        <input type="checkbox" class="from-check-input"
+                                                            [(ngModel)]="doctorEdit">Edit
+                                                    </label>
+                                                </div>
+                                                <div class="form-check-inline">
+                                                    <label class="form-check-label">
+                                                        <input type="checkbox" class="from-check-input"
+                                                            [(ngModel)]="doctorDelete">Delete
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6" *ngIf="isMasters" style="margin-top: 10px;">
+                                    <div class="form-check-inline">
+                                        <label class="from-check-label"><span style="font-size: 15px;"><b>Master
+                                                    Laboratory</b></span>
+                                        </label>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6" style="margin-top: 10px;">
+                                            <div class="form-check-inline">
+                                                <label class="from-check-label">Headers
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12" style="margin-top: 10px;">
+                                            <div class="form-check-inline">
+                                                <input type="checkbox" class="from-check-input"
+                                                    [(ngModel)]="headerAdd">Add
+                                            </div>
+                                            <div class="form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input type="checkbox" class="from-check-input"
+                                                        [(ngModel)]="headerEdit">Edit
+                                                </label>
+                                            </div>
+                                            <div class="form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input type="checkbox" class="from-check-input"
+                                                        [(ngModel)]="headerDelete">Delete
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6" style="margin-top: 10px;">
+                                            <div class="form-check-inline">
+                                                <label class="from-check-label"> Parameter
+                                                </label>
+                                            </div>
+                                            <div class="col-md-12" style="margin-top: 10px;">
+                                                <div class="form-check-inline">
+                                                    <input type="checkbox" class="from-check-input"
+                                                        [(ngModel)]="parameterAdd">Add
+                                                </div>
+                                                <div class="form-check-inline">
+                                                    <label class="form-check-label">
+                                                        <input type="checkbox" class="from-check-input"
+                                                            [(ngModel)]="parameterEdit">Edit
+                                                    </label>
+                                                </div>
+                                                <div class="form-check-inline">
+                                                    <label class="form-check-label">
+                                                        <input type="checkbox" class="from-check-input"
+                                                            [(ngModel)]="parameterDelete">Delete
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6" style="margin-top: 10px;">
+                                            <div class="form-check-inline">
+                                                <label class="from-check-label"> Sample Type
+                                                </label>
+                                            </div>
+                                            <div class="col-md-12" style="margin-top: 10px;">
+                                                <div class="form-check-inline">
+                                                    <input type="checkbox" class="from-check-input"
+                                                        [(ngModel)]="sampleTypeAdd">Add
+                                                </div>
+                                                <div class="form-check-inline">
+                                                    <label class="form-check-label">
+                                                        <input type="checkbox" class="from-check-input"
+                                                            [(ngModel)]="sampleTypeEdit">Edit
+                                                    </label>
+                                                </div>
+                                                <div class="form-check-inline">
+                                                    <label class="form-check-label">
+                                                        <input type="checkbox" class="from-check-input"
+                                                            [(ngModel)]="sampleTypeDelete">Delete
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6" style="margin-top: 10px;">
+                                            <div class="form-check-inline">
+                                                <label class="from-check-label"> Test Master
+                                                </label>
+                                            </div>
+                                            <div class="col-md-12" style="margin-top: 10px;">
+                                                <div class="form-check-inline">
+                                                    <input type="checkbox" class="from-check-input"
+                                                        [(ngModel)]="testMasterAdd">Add
+                                                </div>
+                                                <div class="form-check-inline">
+                                                    <label class="form-check-label">
+                                                        <input type="checkbox" class="from-check-input"
+                                                            [(ngModel)]="testMasterEdit">Edit
+                                                    </label>
+                                                </div>
+                                                <div class="form-check-inline">
+                                                    <label class="form-check-label">
+                                                        <input type="checkbox" class="from-check-input"
+                                                            [(ngModel)]="testMasterDelete">Delete
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                        <div class="col-md-12" style="margin-top:10px">
+                            <div class="form-check-inline">
+                                <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input" [(ngModel)]="patient"
+                                        (change)="patientChange()"><span style="font-size:20px"><b>Patient</b></span>
+                                </label>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6" *ngIf="isPatient" style="margin-top: 10px;">
+                                    <!-- <div class="form-check-inline">
+            <label class="form-check-label"><span style="font-size: 15px;"><b>Patients</b></span></label>
+        </div> -->
+                                    <div class="row">
+                                        <div class="col-md-6" style="margin-top: 10px;">
+                                            <div class="form-check-inline">
+                                                <label class="from-check-label">Patient Registration
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12" style="margin-top: 10px;">
+                                            <div class="form-check-inline">
+                                                <input type="checkbox" class="from-check-input"
+                                                    [(ngModel)]="patientAdd">Add
+                                            </div>
+                                            <div class="form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input type="checkbox" class="from-check-input"
+                                                        [(ngModel)]="patientEdit">Edit
+                                                </label>
+                                            </div>
+                                            <!-- <div class="form-check-inline">
+                    <label class="form-check-label">
+                        <input type="checkbox" class="from-check-input"
+                            [(ngModel)]="departDelete">Delete
+                    </label>
+                </div> -->
+                                        </div>
+
+                                        <div class="col-md-6" style="margin-top: 10px;">
+                                            <div class="form-check-inline">
+                                                <label class="from-check-label">Patient Payment Deposit
+                                                </label>
+                                            </div>
+                                            <div class="col-md-12" style="margin-top: 10px;">
+                                                <div class="form-check-inline">
+                                                    <input type="checkbox" class="from-check-input"
+                                                        [(ngModel)]="patientPaymentDepositAdd">Add
+                                                </div>
+                                                <div class="form-check-inline">
+                                                    <label class="form-check-label">
+                                                        <input type="checkbox" class="from-check-input"
+                                                            [(ngModel)]="patientPaymentDepositDetailsEdit">Details Add
+                                                    </label>
+                                                </div>
+                                                <!-- <div class="form-check-inline">
+                        <label class="form-check-label">
+                            <input type="checkbox" class="from-check-input"
+                                [(ngModel)]="patientPaymentDepositDelete">Delete
+                        </label>
+                    </div> -->
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6" style="margin-top: 10px;">
+                                            <div class="form-check-inline">
+                                                <label class="from-check-label"> Opd Bill
+                                                </label>
+                                            </div>
+                                            <div class="col-md-12" style="margin-top: 10px;">
+                                                <div class="form-check-inline">
+                                                    <input type="checkbox" class="from-check-input"
+                                                        [(ngModel)]="opdAdd">Add
+                                                </div>
+                                                <div class="form-check-inline">
+                                                    <label class="form-check-label">
+                                                        <input type="checkbox" class="from-check-input"
+                                                            [(ngModel)]="opdEdit">Edit
+                                                    </label>
+                                                </div>
+                                                <div class="form-check-inline">
+                                                    <label class="form-check-label">
+                                                        <input type="checkbox" class="from-check-input"
+                                                            [(ngModel)]="opdDelete">Delete
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6" style="margin-top: 10px;">
+                                            <div class="form-check-inline">
+                                                <label class="from-check-label"> IPDBills
+                                                </label>
+                                            </div>
+                                            <div class="col-md-12" style="margin-top: 10px;">
+                                                <div class="form-check-inline">
+                                                    <input type="checkbox" class="from-check-input"
+                                                        [(ngModel)]="ipdAdd">Add
+                                                </div>
+                                                <div class="form-check-inline">
+                                                    <label class="form-check-label">
+                                                        <input type="checkbox" class="from-check-input"
+                                                            [(ngModel)]="ipdEdit">Edit
+                                                    </label>
+                                                </div>
+                                                <div class="form-check-inline">
+                                                    <label class="form-check-label">
+                                                        <input type="checkbox" class="from-check-input"
+                                                            [(ngModel)]="ipdDelete">Delete
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12" style="margin-top:10px">
+                            <div class="form-check-inline">
+                                <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input" [(ngModel)]="report"
+                                        (change)="reportChange()"><span style="font-size:20px"><b>MIS
+                                            Reports</b></span>
+                                </label>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6" *ngIf="isReport" style="margin-top: 10px;">
+                                    <!-- <div class="form-check-inline">
+            <label class="form-check-label"><span style="font-size: 15px;"><b>Patients</b></span></label>
+        </div> -->
+                                    <div class="row">
+                                        <div class="col-md-6" style="margin-top: 10px;">
+                                            <div class="form-check-inline">
+                                                <label class="from-check-label">Hospital Day Book
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12" style="margin-top: 10px;">
+                                            <div class="form-check-inline">
+                                                <input type="checkbox" class="from-check-input"
+                                                    [(ngModel)]="hospitalDayBookView">View
+                                            </div>
+                                            <div class="form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input type="checkbox" class="from-check-input"
+                                                        [(ngModel)]="hospitalDayBookOPDView">OPD
+                                                </label>
+                                            </div>
+                                            <div class="form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input type="checkbox" class="from-check-input"
+                                                        [(ngModel)]="hospitalDayBookIPDView">IPD
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="mt-3 mb-3 pull-right">
+                <div class="col-md-12">
+                    <button type="button" (click)="update()" class="btn btn-block btn-primary"> Update</button>
+                </div>
+            </div>
+            <!-- </from>-->
+        </div>
+    </div>
+</div>

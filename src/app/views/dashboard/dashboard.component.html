@@ -1,0 +1,325 @@
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-md-12">
+            <form [formGroup]='form.getFrom()'>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-group" style="margin: 33px;">
+                                <div class="custom-control custom-checkbox" [ngClass]="{'visible':listNameEditMode}">
+                                    <input type="checkbox" class="custom-control-input" id="defaultUnchecked"
+                                        (click)="oncheckboxclick()">
+                                    <label class="custom-control-label" for="defaultUnchecked"
+                                        style="font-size:18px;">Date
+                                        Range</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2" *ngIf="listNameEditModes==false">
+                            <div class="form-group">
+                                <label for="name">Select Date <span style="color:red;">*</span></label>
+                                <input [bsConfig]="{isAnimated:true,dateInputFormat:'YYYY-MM-DD'}" class="form-control"
+                                    bsDatepicker [maxDate]='maxDate' fromControlName="PerDate">
+                                <div *ngIf="from.hasError('PerDate')" class="text-danger">
+                                    {{from.getError('PerDate')}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2" *ngIf="listNameEditModes==false">
+                            <button type="submit" (click)="getPerDate()" class="btn btn-block btn-primary"
+                                style="margin-top:23px;">
+                                View </button>
+                        </div>
+
+                        <div class="col-md-2" *ngIf="listNameEditModes==true">
+                            <div class="form-group">
+                                <label for="name">From Date <span style="color:red;">*</span></label>
+                                <input [bsConfig]="{isAnimated:true,dateInputFormat:'YYYY-MM-DD'}" class="form-control"
+                                    bsDatepicker (bsValueChange)="min($event)" [maxDate]='maxDate'
+                                    fromControlName="FromDate">
+                                <!--(click)="min()"-->
+                                <div *ngIf="from.hasError('FromDate')" class="text-danger">
+                                    {{from.getError('FromDate')}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2" *ngIf="listNameEditModes==true">
+                            <div class="form-group">
+                                <label for="name">To Date <span style="color:red;">*</span></label>
+                                <input [bsConfig]="{isAnimated:true,dateInputFormat:'YYYY-MM-DD'}" class="form-control"
+                                    bsDatepicker [minDate]='minDate' [maxDate]='maxDate' fromControlName="ToDate">
+                                <!--(click)="min()"-->
+                                <div *ngIf="from.hasError('ToDate')" class="text-danger">
+                                    {{from.getError('ToDate')}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2" *ngIf="listNameEditModes==true">
+                            <button type="submit" (click)="patientdetails()" class="btn btn-block btn-primary"
+                                style="margin-top:23px;">
+                                View </button>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- <div class="row" *ngIf="details"> -->
+                    <div class="row" >
+                    <div class="col-lg-3 col-md-6 col-md-sm-6">
+                        <div class="card card-stats" style="border-radius: 12px;"
+                            class="card text-white bg-primary mb-3">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-5 col-md-4">
+                                        <img src='../../../assets/img/juice/applejuice.jpg'  alt="image not found">
+                                    </div>
+                                    <div class="col-7 col-md-8">
+                                        <div class="numbers">
+                                            <p class="card-category"
+                                                style="color:black;font-size:12px;text-align:right;"><b>TOTAL
+                                                    PATIENT</b>
+                                            </p>
+                                            <p class="text-value float-right">{{preday==NaN?0:preday}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-footer bg-transparent border-light">
+                                <div class="card-body">
+                                    <div class="row" style="margin:-28px;">
+                                        <div class="col-md-2">
+                                            <div>
+                                                <div class="text-uppercase" style="color:black">OPD</div>
+                                                <div class="text-value">{{OPD}}</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div>
+                                                <div class="text-uppercase" style="color:black">OPDREVISIT</div>
+                                                <div class="text-value">{{OPDP}}</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div>
+                                                <div class="text-uppercase" style="color:black">IPDREVISIT</div>
+                                                <div class="text-value">{{IPDRE}}</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div>
+                                                <div class="text-uppercase" style="color:black">IPD</div>
+                                                <div class="text-value">{{IPDP}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 col-sm-6">
+                        <div class="card card-stats" style="border-radius: 12px;"
+                            class="card text-white bg-primary mb-3">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-5 col-md-4">
+                                        <img src=' '>
+                                    </div>
+                                    <div class="col-7 col-md-8">
+                                        <div class="numbers">
+                                            <p class="card-category"
+                                                style="color:black;font-size:12px;text-align:right;"><b>OPD PATIENT</b>
+                                            </p>
+                                            <p class="text-value float-right">{{OPD}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-transparent border-light">
+                                <div class="card-body">
+                                    <div style="margin:-28px">
+                                        <div class="text-uppercase" style="color:black">BILL AMOUNT</div>
+                                        <div class="text-value">{{OPDI}}</div>
+                                    </div>
+                                    <div style="margin-top:-25px;float:right;">
+                                        <div class="text-uppercase" style="color:black">BALANCE</div>
+                                        <div class="text-value">{{OPDB}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 col-sm-6">
+                        <div class="card card-stats" style="border-radius: 12px;"
+                            class="card text-white bg-primary mb-3">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-5 col-md-4">
+                                        <img src=' '>
+                                    </div>
+                                    <div class="col-7 col-md-8">
+                                        <div class="numbers">
+                                            <p class="card-category"
+                                                style="color:black;font-size:12px;text-align:right;"><b>IPD PATIENT</b>
+                                            </p>
+                                            <p class="text-value float-right">{{IPDP}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-transparent border-light">
+                                <div class="card-body">
+                                    <div style="margin:-28px">
+                                        <div class="text-uppercase" style="color:black">BILL AMOUNT</div>
+                                        <div class="text-value">{{IPDPAID}}</div>
+                                    </div>
+                                    <div style="margin-top:-25px;float:right;">
+                                        <div class="text-uppercase" style="color:black">BALANCE</div>
+                                        <div class="text-value">{{IPDBALL}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 col-sm-6">
+                        <div class="card card-stats" style="border-radius: 12px;"
+                            class="card text-white bg-primary mb-3">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-5 col-md-4">
+                                        <img src=' '>
+                                    </div>
+                                    <div class="col-7 col-md-8">
+                                        <div class="numbers">
+                                            <p class="card-category"
+                                                style="color:black;font-size:12px;text-align:right;"><b>TOTAL</b>
+                                            </p>
+                                            <p class="text-value float-right">{{amount == NaN ? 0 : amount}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-transparent border-light">
+                                <div class="card-body">
+                                    <div style="margin:-28px">
+                                        <div class="text-uppercase" style="color:black">Balance</div>
+                                        <div class="text-value">{{IPDBAL}}</div>
+                                    </div>
+                                    <div style="margin-top:-25px;float:right;">
+                                        <div class="text-uppercase" style="color:black">Refund</div>
+                                        <div class="text-value">{{refund}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 col-sm-6">
+                        <div class="card card-stats" style="border-radius: 12px;"
+                            class="card text-white bg-primary mb-3">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-5 col-md-4">
+                                        <img src=' '>
+                                    </div>
+                                    <div class="col-7 col-md-8">
+                                        <div class="numbers">
+                                            <p class="card-category"
+                                                style="color:black;font-size:12px;text-align:right;"><b>TOTAL INCOME</b>
+                                            </p>
+                                            <p class="text-value float-right">{{itotal}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-transparent border-light">
+                                <div class="card-body">
+                                    <div style="margin:-28px">
+                                        <div class="text-uppercase" style="color:black">OPD</div>
+                                        <div class="text-value">{{OPDI}}</div>
+                                    </div>
+                                    <div style="margin-top:-25px;float:right;">
+                                        <div class="text-uppercase" style="color:black">IPD</div>
+                                        <div class="text-value">{{IPDI}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 col-sm-6">
+                        <div class="card card-stats" style="border-radius: 12px;"
+                            class="card text-white bg-primary mb-3">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-5 col-md-4">
+                                        <img src=' '>
+                                    </div>
+                                    <div class="col-7 col-md-8">
+                                        <div class="numbers">
+                                            <p class="card-category"
+                                                style="color:black;font-size:12px;text-align:right;"><b>TOTAL BED</b>
+                                            </p>
+                                            <p class="text-value float-right">{{Ttotal}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-transparent border-light">
+                                <div class="card-body">
+                                    <div style="margin:-28px">
+                                        <div class="text-uppercase" style="color:black">Available</div>
+                                        <div class="text-value">{{atotal}}</div>
+                                    </div>
+                                    <div style="margin-top:-25px;float:right;">
+                                        <div class="text-uppercase" style="color:black">Occupied</div>
+                                        <div class="text-value">{{Ototal}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 col-sm-6">
+                        <div class="card card-stats" style="border-radius: 12px;"
+                            class="card text-white bg-primary mb-3">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-5 col-md-4">
+                                        <img src=' '>
+                                    </div>
+                                    <div class="col-7 col-md-8">
+                                        <div class="numbers">
+                                            <p class="card-category"
+                                                style="color:black;font-size:12px;text-align:right;"><b>Discharge PATIENT</b>
+                                            </p>
+                                            <p class="text-value float-right">{{disc}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-transparent border-light">
+                                <div class="card-body">
+                                    <div style="margin:-28px">
+                                        <div class="text-uppercase text-muted small"> </div>
+                                        <div class="text-value"></div>
+                                    </div>
+                                    <div style="margin-top:-25px;float:right;">
+                                        <div class="text-uppercase text-muted small"></div>
+                                        <div class="text-value"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

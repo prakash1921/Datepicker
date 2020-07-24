@@ -1,0 +1,32 @@
+
+table { 
+    table-layout: auto;
+}
+table,thead,table tfoot,table tbody tr{
+    display: table;
+    table-layout: fixed;
+}
+tbody td,
+thead th,
+tfoot td{
+    border-right: 1px solid #DCDCDC !important;
+    vertical-align: middle;
+    text-align: center;
+    white-space: normal;
+    word-wrap:break-word;
+}
+table thead{
+    width:100%;
+}
+table tfoot{
+    width:100%;
+}
+table tbody{
+    flex:1 1 auto;
+    display: block;
+    overflow-y: auto;
+}
+table tbody tr{
+    width: 100%;
+}
+

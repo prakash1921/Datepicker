@@ -1,0 +1,36 @@
+<p>Exporting an excel file of type .xslx !!!</p>
+<p>Export as XLSX by clicking the below button</p>
+<button (click)="exportAsXLSX()"><i class="fa fa-file-excel-o" style="font-size:48px;color:blue">ExcelSheet</i></button>
+<table>
+ <tr>
+   <td>Eid</td>
+   <td>Ename</td>
+   <td>Esal</td>
+ </tr>
+ <tr *ngFor="let item of data">
+   <td>{{item.eid}}</td>
+   <td>{{item.ename}}</td>
+   <td>{{item.esal}}</td>
+ </tr>
+</table>
+
+
+<!-- DatePicker -->
+<div class="row">
+    <div class="col-xs-12 col-12 col-md-4 form-group">
+      <form [formGroup]="myForm">
+        <input
+          class="form-control"
+          [minDate]="minDate"
+          [maxDate]="maxDate"
+          #dp="bsDatepicker"
+          bsDatepicker
+          formControlName="myDate"
+        >
+      </form>
+    </div>
+    <div class="col-xs-12 col-12 col-md-3 form-group">
+      <button class="btn btn-success" (click)="dp.toggle()">Date Picker</button>
+    </div>
+  </div>
+  <br>

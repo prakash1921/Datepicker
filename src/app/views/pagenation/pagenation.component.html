@@ -1,0 +1,513 @@
+<div class="animated fadeIn" style="overflow-x: hidden;margin-top:15px;padding: 0px;">
+    <div class="row">
+        <div class="col-md-1">
+            <div class="form-group">
+                <select id="name" [(ngModel)]="numberOfRows" class="form-control textColor">
+                    <option value='10'>10</option>
+                    <option value='25'>25</option>
+                    <option value='50'>50</option>
+                    <option value='100'>100</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-2"></div>
+        <div class="col-md-2"></div>
+        <div class="col-md-2"></div>
+        <div class="col-md-2">
+            <form [formGroup]="search">
+                <div class="form-group">
+                    <input class="form-control" formControlName="search" id="name" placeholder="Search Employes Name"
+                        type="text">
+                </div>
+            </form>
+        </div>
+        <div class="col-md-2">
+            <button type="button" (click)="goto()" class="btn btn-block btn-primary fa fa-plus"> <span><i
+                        class="fa fa-users" aria-hidden="true"></i></span> Add Employee</button>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+
+                </div>
+                <div class="card-body">
+                    <table class="table table-responsive-sm table-hover table-outline mb-0"
+                        style="border: 1px solid lightgray">
+                        <thead class="thead-light" style="text-align: center;">
+                            <tr>
+                                <td>Id</td>
+                                <td>EmpNo</td>
+                                <td>EmpName</td>
+                                <td> Action </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let emp of data | paginate: { id: 'listing_pagination',
+                                                                      itemsPerPage: numberOfRows,
+                                                                      currentPage: page,
+                                                                      totalItems: totalRec }">
+                                <td>{{emp.eid}}</td>
+                                <td>{{emp.ename}}</td>
+                                <td>{{emp.esal}}</td>
+                                <!-- <td>{{getDate(emp.date)}}</td> -->
+                                <!-- <td>{{getDate(emp.date) | date: 'dd-MM-yyyy'}}</td> -->
+                                <!-- <td>{{emp.ename ? emp.ename : ' ' }}</td> -->
+                                <!-- <td>{{emp.length == 0 ? '-': emp.ename }}</td> -->
+
+                                <td>
+                                    <button type="button" (click)="$event.stopPropagation();edit(emp)"
+                                        class="btn btn-success">Edit</button>
+                                    <button type="button" (click)="$event.stopPropagation();delete(emp)"
+                                        class="btn btn-success" style="margin-left: 28px;">Delete</button>
+
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <pagination-controls style="float:right" id="listing_pagination" maxSize="5" directionLinks="true"
+                (pageChange)="page = $event"></pagination-controls>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- 
+<div class="card">
+    <div class="card-header">
+        Patient IPD Bills
+    </div>
+    <div class="card-body">
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-3">
+                    <label for="name"> IPD Recipt</label>
+
+                </div>
+                <div class="col-md-4">
+                    <label class="radio-inline">
+                        <input type="radio" name="opdradio" (click)="selectipdreceipt('IPDBill')" checked> IPD Bills
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="opdradio" (click)="selectipdreceipt('Provisional')"> Provisional Bills
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="opdradio" (click)="selectipdreceipt('Final')"> Final Bills
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="col-md-2">
+    <label for="PatientRegNo"> Patient RegNo <span style="color:red">*</span></label>
+    <input id="PatientRegNo" formControlName="PatientRegNo" (change)="Getvaluebyreg($event.target.value)"
+        class="form-control" placeholder="PatientRegNo" autocomplete="off">
+</div>
+<div class="col-md-4" *ngIf="IPDReceipt == 'IPDBill'">
+    <div class="form-group">
+        <label for="OldBillNo"> Old Bill No</label>
+        <select id="OldBillNo" formControlName="OldBillNo" class="form-control"
+            (change)='getbilldate($event.target.value)'>
+            <option value=' ' selected disabled> Select BillNo</option>
+            <option *ngFor="let test of BillList123" [value]="test.BillNo">{{test.BillNo}}</option>
+        </select>
+    </div>
+
+</div>
+
+
+<div class="card" *ngIf="test.lenth > 0">
+    <div class="card-body">
+        <table class="table table-responsive-sm table-hover table-outline mb-0">
+            <tr>
+                <th>Service Name</th>
+                <th *ngIf="IPDReceipt == 'Provisional'"> Doctor Name</th>
+                <th *ngIf="IPDReceipt == 'Provisional'"> Bill Date</th>
+                <th *ngIf="IPDReceipt == 'Provisional' || IPDReceipt == 'IPDFinalBill'"> Doctor Name</th>
+                <th>Rate</th>
+                <th>Quantity</th>
+                <th>Total Amount</th>
+            </tr>
+            <tr *ngFor='let sub of tests'>
+                <td>
+                    <input class="form-control" type="text" value="{{sub.ServiceName}}" disabled>
+                </td>
+                <td>
+                    <input *ngIf="IPDReceipt == 'Provisional' && IPDReceipt == 'IPDBill'" class="form-control"
+                        type="text" value="{{sub.ServiceName}}" disabled>
+                </td>
+                <td>
+                    <input class="form-control" type="text" value="{{sub.ServiceName}}" disabled>
+                </td>
+                <td>
+                    <input class="form-control" type="text"
+                        value="{{getDate(sub.Billdate == undefined ? 0 : sub.Billdate) | date: 'dd-MM-yyyy'}}" disabled>
+                </td>
+                <td>
+                    <input type="text" class="form-control" value="{{sub.Rate}}" disabled />
+                </td>
+                <td>
+                    <input type="text" class="form-control" value="{{sub.Quantity}}" disabled />
+                </td>
+                <td>
+                    <input type="text" *ngIf="sub.id!= undefined" class="form-control" value="{{sub.TotalAmount}}"
+                        disabled />
+                    <input type="text" *ngIf="sub.id== undefined" class="form-control" value="{{sub.TotalAmount}}"
+                        disabled />
+
+                </td>
+                <td *ngIf="IPDReceipt == 'IPDBill'">
+                    <button type="button" class="btn btn-block btn-danger" (click)='remove(sub.ServiceID,sub)'> Remove
+                    </button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+
+
+<div class="row" *ngIf="IPDReceipt == 'IPDBill' || IPDReceipt=='IPDFinalBill'">
+    <div class="col-md-12">
+        <div class="form-control">
+            <div class="row" style="margin-left:81px">
+                <div class="col-md-4">
+                    <label for="name"> Payment Type <span style="color:red"> * </span></label>
+
+                </div>
+                <div class="col-md-8" style="left:17px">
+                    <select [(ngModel)]='paymentType' id="PaymentType" formControlName="PaymentType"
+                        class="form-control" (change)="selectpaymenttype($event.target.value)">
+                        <option value='Cash'>Cash</option>
+                        <option value='Credit Card'>Credit Card</option>
+                        <option value='Cashless'>Cashless</option>
+                    </select></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<div class="card" *ngIf="Card">
+    <div class="card-header">
+        Payment Type :- Card
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="Card"> Card No </label>
+                    <input type="text" formControlName="CardNo" placeholder="CardNo" class="form-control">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="BankName"> Bank Name </label>
+                    <input type="text" formControlName="BankName" placeholder="BankName" class="form-control">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="BankName"> Bank Name </label>
+                    <input type="text" formControlName="BankName" placeholder="BankName" class="form-control">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="Date"> Cheque Date </label>
+                    <input type="text" formControlName="Date"
+                        [bsConfig]="{ isAnimated:true,dateInputFormat: 'YYYY-MM-DD'}" placeholder="Date"
+                        class="form-control" bsDatepicker>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="Remarks"> Bank Name </label>
+                    <input type="text" formControlName="Remarks" placeholder="Remarks" class="form-control">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card" *ngIf="Credit Card">
+    <div class="card-header">
+        Payment Type :- Credit Card
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="CreditNo"> Credit No </label>
+                    <input type="text" formControlName="CreditNo" placeholder="CreditNo" class="form-control">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="BankName"> Bank Name </label>
+                    <input type="text" formControlName="BankName" placeholder="BankName" class="form-control">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="BankName"> Bank Name </label>
+                    <input type="text" formControlName="BankName" placeholder="BankName" class="form-control">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="Date"> Cheque Date </label>
+                    <input type="text" formControlName="Date"
+                        [bsConfig]="{ isAnimated:true,dateInputFormat: 'YYYY-MM-DD'}" placeholder="Date"
+                        class="form-control" bsDatepicker>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="Remarks"> Bank Name </label>
+                    <input type="text" formControlName="Remarks" placeholder="Remarks" class="form-control">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card" *ngIf="Cashless">
+    <div class="card-header">
+        Payment Type :- Cash less
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="CashLess"> CashLess </label>
+                    <input type="text" formControlName="CashLess" placeholder="CashLess" class="form-control">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="BankName"> Bank Name </label>
+                    <input type="text" formControlName="BankName" placeholder="BankName" class="form-control">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="BankName"> Bank Name </label>
+                    <input type="text" formControlName="BankName" placeholder="BankName" class="form-control">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="Date"> Cheque Date </label>
+                    <input type="text" formControlName="Date"
+                        [bsConfig]="{ isAnimated:true,dateInputFormat: 'YYYY-MM-DD'}" placeholder="Date"
+                        class="form-control" bsDatepicker>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="Remarks"> Bank Name </label>
+                    <input type="text" formControlName="Remarks" placeholder="Remarks" class="form-control">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-2" *ngIf="IPDReceipt == 'IPDBill'">
+    <button type="button" class="btn btn-block btn-danger" (click)='Ipdreprintip()'> Reprint
+    </button>
+</div>
+<div class="col-md-2" *ngIf="IPDReceipt == 'Provisional'">
+    <button type="button" class="btn btn-block btn-danger" (click)='Provisionalreprintip()'> Reprint
+    </button>
+</div>
+<div class="col-md-2" *ngIf="IPDReceipt == 'IPDFinalBill'">
+    <button type="button" class="btn btn-block btn-danger" (click)='Finalreprintip()'> Reprint
+    </button>
+</div>
+
+
+
+
+
+
+
+<div class="card mt-3">
+    <div class="row mt2">
+        <div class="col-md-12">
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link" href="#normalrange" role="tab" data-toggle="tab">Patient History & Advices</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#helpvalue" role="tab" data-toggle="tab">Investigation & Drugs</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#uploadfile" role="tab" data-toggle="tab">Upload Files</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane fade" id="normalrange">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="name">Chief Complaint With Duration</label>
+                                <textarea id="ChiefComplaint" formControlName='CheifComplaint' class="form-control"
+                                    type="text"></textarea>
+                            </div>
+                            <div *ngIf="form.hasError('CheifComplaint')" class="text-danger">
+                                {{form.getError('CheifComplaint')}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="uploadfile">
+                    <form>
+                        <div class="row">
+                            <div class="col-md-4" *ngIf='discharge' style="margin-top:1%;font-size:18px;">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <input id="photo" type="file" size="100"
+                                            accept="image/x-png,image/gif,image/jpeg" />
+accept="image/x-png,image/gif,image/jpeg,application/pdf,image/x-eps"
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <button type="button" class="btn btn-success btn-s" (click)="upload()"
+                                            style="font-size: 18px;">
+                                            Upload
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="isdischarge || filepathData.length!=0">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="links" *ngFor="let array of filepathData">
+                                        <span *ngFor='let arrayobj of array.FileNamearray'>
+                                            <td><span>
+                                                    <h1 style="margin-right:29px;width:150px">
+                                                        <img src="assets/report.png' (click)=" searchurl(arrayobj)"
+                                                            style="margin-top:16px;margin-left:19px">
+                                                        <i class="fa fa-window-close"
+                                                            style="color:red;position:absolute;"
+                                                            (click)="deletePatientslatest(arrayobj,arry)"></i>
+                                                    </h1>
+                                                </span></td>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="row">
+    <div class="col-md-5">
+        <form [formGroup]="form.get()" (ngSubmit)="viewAllcollection()">
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <input [bsConfig]="{ isAnimated:true,dateInputFormat:'YYYY-MM-DD'}"
+                            (ngModelChange)="onValueChangeRegDate($event)" class="form-control" bsDatepicker
+                            [maxDate]="maxDate" formControlName="CreationDate">
+                        <div *ngIf="form.hasError" class="text-danger">
+                            {{form.getError('CreationDate')}}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <button type-="submit" class="btn btn-block btn-primary">view</button>
+                </div>
+                <div class="col-md-2">
+                    <button type-="button" (click)="viewAllOPDIPDCOllection('OPDBill')"
+                        class="btn btn-block btn-primary">OPD Collection</button>
+                </div>
+                <div class="col-md-2">
+                    <button type-="button" (click)="viewAllOPDIPDCOllection('IPDBill')"
+                        class="btn btn-block btn-primary">IPD Collection</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+
+<form [formGroup]="form.getForm()">
+    <div class="card">
+        <div classs="card-header">
+            Patient Pre Balance Amount
+        </div>
+        <div class="card-body">
+<div class="row">
+    <div class="col-md-4">
+        <label for="name">From Date</label>
+        <input type="text" [bsConfig]="{isAnimated:true,dateInputFormat:'YYYY-MM-DD'}" formControlName="FromDate"
+            class="form-control" [maxDate]="maxDate" (ngModelChange)="min($event)" bsDatepicker>
+    </div>
+    <div class="col-md-4">
+        <label for="name">To Date</label>
+        <input type="text" [bsConfig]="{isAnimated:true,dateInputFormat:'YYYY-MM-DD'}" formControlName="ToDate"
+            class="form-control" [maxDate]="maxDate" (ngModelChange)="dateOnCahange($event)" bsDatepicker>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label for="name">Search By End Result</label>
+            <select fromControlName="EndResult" class="from-control" (change)="selectEndResult($event.target.value)">
+                <option value='Relieved' >Relieved</option>
+                <option value='Expired' >Expired</option>
+                <option value='Transfer' >Transfer</option>
+
+            </select>
+        </div>
+    </div>
+</div>
+
+</div>
+</div>
+</form>
+<div class="row">
+    <div class="col-md-2">
+        <button type="submit" class="btn btn-block btn-primary" (click)="view()"> View< /button>
+    </div>
+</div> -->
+
+<!-- <input id="PinCode"formControlName="PinCode" class="form-control" placeholder="Pin Code"
+(keypress)="numberOnly($event)" type="text"> -->
+
+
+
+<!-- <ul class="nav navbar-nav ml-out" *ngIf="userDetails.LocationID==0">
+<select [(ngModel)]="locationid" (change)="selectedlocation($event.target.value)">
+    <option *ngFor="let obj of locationList" [value]="obj.LocationID">
+        {{obj.LocationName}}
+    </option>
+</select>
+</ul>
+
+<ul class="nav navbar-nav ml-out" *ngIf="userDetails.LocationID!=0">
+    <select [(ngModel)]="locationid" (change)="selectedlocation($event.target.value)">
+        <option *ngFor="let obj of locationList" [value]="obj.LocationID"
+        [disabled]='obj.LocationID != userDetails.LocationID'>
+            {{obj.LocationName}}
+        </option>
+    </select>
+    </ul> -->

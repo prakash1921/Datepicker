@@ -1,0 +1,28 @@
+<div class="row mt-4">
+    <marquee *ngIf="showmsg">OTP send to user Email Address</marquee>
+    <div class="offset-sm-4 col-sm-4 d-block justify-content-center">
+        <div class="card text-center">
+            <h1>Enter OTP</h1>
+            <h2>Check your email for OTP</h2>
+            <from>
+                <div class="container">
+                    <div class="row margin d-flex justify-content-center">
+                        <div class="c0l-sm-10">
+                            <!-- [allowNumbersOnly]="true" -->
+                            <ng-otp-input #ngOtpInput (onInputChange)="onOtpChange($event)"
+                                [config]="{length:4}"></ng-otp-input>
+                        </div>
+                    </div>
+                    <div class="row margin d-flex justify-content-center">
+                        <div class="c0l-sm-10">
+                            
+                            <button type="button" class="btn btn-danger" (click)="update()">Submit</button>
+                            <button type="button" *ngIf="expired" class="btn btn-danger" (click)="resend()">Resend OTP</button>
+                        <div *ngIf="exipredotp">Invalid OTP</div>
+                        </div>
+                    </div>
+                </div>
+            </from>
+        </div>
+    </div>
+</div>
